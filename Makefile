@@ -1,27 +1,37 @@
-#Compiler and Linker
+# Compiler
 CC          := gcc
 
-#The Target Binary Program
-TARGET      := snake
+# The Directories, Source, Includes, Objects, Binary and Resources
+SRCDIR		:= src
+OBJDIR		:= obj
+BINDIR		:= bin
 
-#The Directories, Source, Includes, Objects, Binary and Resources
-SRCDIR      := src
-BUILDDIR    := obj
-TARGETDIR   := bin
-SRCEXT      := c
-DEPEXT      := d
-OBJEXT      := o
+# The files to be used in the make process
+TARGET		:= $(BINDIR)/snake
+SRC			:= $(wildcard $(SRCDIR)/*.c)
+OBJ 		:= $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+
+$(info TARGET is $(TARGET))
+$(info	SRC is $(SRC))
+$(info	OBJ is $(OBJ))
 
 #Flags, Libraries and Includes
-CFLAGS      := -fopenmp -Wall -O3 -g
-LIB         := 
+CFLAGS		:= -fopenmp -Wall -O3 -g
+LDLIBS		:= -lm
+LDFLAGS		:= -Llib
 
-.PHONY: All clean
+.PHONY: all clean
 
-All: $(TARGET)
+all: $(TARGET)
 
-$(TARGET): %.o : %.c
-	$(CC) $(CFLAGS)
+$(TARGET): $(OBJ) | $(BINDIR)
+	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BINDIR) $(OBJDIR):
+	mkdir -p $@
 
 clean:
-
+	@$(RM) -rv $(OBJDIR) $(BINDIR)
