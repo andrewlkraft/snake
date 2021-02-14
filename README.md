@@ -1,3 +1,3 @@
-# SIMPLE C GAME
+# SIMPLE SNAKE GAME IN C
 
-A simple snake game written in C using the Windows.h header. This will only work on windows systems.
+Made using SDL with c
