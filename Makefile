@@ -11,21 +11,19 @@ TARGET		:= $(BINDIR)/snake
 SRC			:= $(wildcard $(SRCDIR)/*.c)
 OBJ 		:= $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
-$(info TARGET is $(TARGET))
-$(info	SRC is $(SRC))
-$(info	OBJ is $(OBJ))
-
 #Flags, Libraries and Includes
-CFLAGS		:= -fopenmp -Wall -O3 -g
+CFLAGS		:= -fopenmp -Wall -O3 --std=c99
 LDLIBS		:= -lm
 LDFLAGS		:= -Llib
+SDLFLAGS	:= -lmingw32 -lSDL2main -lSDL2
+DEBUG		:= -g
 
 .PHONY: all clean
 
 all: $(TARGET)
 
 $(TARGET): $(OBJ) | $(BINDIR)
-	$(CC) $(LDFLAGS) $^ $(LDLIBS) -o $@
+	$(CC) $(LDFLAGS) $^ $(LDLIBS) $(SDLFLAGS) -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
