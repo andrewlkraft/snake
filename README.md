@@ -1,3 +1,3 @@
-# SIMPLE SNAKE GAME IN C
+# Simple Snake Game in C
 
-Made using SDL with c
+Made using SDL
