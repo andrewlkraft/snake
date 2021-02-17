@@ -1,0 +1,12 @@
+#ifndef DEFS_H
+#define DEFS_H
+
+#define SCREEN_WIDTH	1080
+#define SCREEN_HEIGHT	720
+
+#define TILE_SIZE 20
+
+#define FIELD_WIDTH (SCREEN_WIDTH / TILE_SIZE)
+#define FIELD_HEIGHT (SCREEN_HEIGHT / TILE_SIZE)
+
+#endif
