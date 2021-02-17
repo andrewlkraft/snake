@@ -9,6 +9,6 @@ extern void draw_background(void);
 extern void draw_scene(void);
 extern void take_input(void);
 
-App app;
+Game game;
 
 #endif

@@ -13,9 +13,9 @@ void init_SDL(void)
 		exit(1);
 	}
 
-	app.win = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,SCREEN_WIDTH, SCREEN_HEIGHT, window_flags);
+	game.win = SDL_CreateWindow("", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,SCREEN_WIDTH, SCREEN_HEIGHT, window_flags);
 
-	if(!app.win)
+	if(!game.win)
 	{
 		printf("Failed to open window: %s", SDL_GetError());
 		exit(1);
@@ -23,9 +23,9 @@ void init_SDL(void)
 
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 
-	app.rend = SDL_CreateRenderer(app.win, -1, render_flags);
+	game.rend = SDL_CreateRenderer(game.win, -1, render_flags);
 
-	if(!app.rend)
+	if(!game.rend)
 	{
 		printf("Failed to create renderer: %s", SDL_GetError());
 		exit(1);
@@ -34,9 +34,9 @@ void init_SDL(void)
 
 void quit_SDL(void)
 {
-	SDL_DestroyRenderer(app.rend);
+	SDL_DestroyRenderer(game.rend);
 	
-	SDL_DestroyWindow(app.win);
+	SDL_DestroyWindow(game.win);
 	
 	SDL_Quit();
 }

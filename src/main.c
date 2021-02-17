@@ -12,7 +12,8 @@
 
 int main(int argc, char** argv)
 {
-	memset(&app, 0, sizeof(App));
+	// allocate memory for the Game structure we declared
+	memset(&game, 0, sizeof(Game));
 
 	init_SDL();
 	atexit(quit_SDL);

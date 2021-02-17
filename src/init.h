@@ -3,6 +3,6 @@
 
 #include "headers.h"
 
-extern App app;
+extern Game game;
 
 #endif
