@@ -8,6 +8,7 @@ BINDIR		:= bin
 
 # The files to be used in the make process
 TARGET		:= $(BINDIR)/snake
+DEBUG		:= $(BINDIR)/debug
 SRC			:= $(wildcard $(SRCDIR)/*.c)
 OBJ 		:= $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
@@ -15,12 +16,17 @@ OBJ 		:= $(SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 CFLAGS		:= -fopenmp -Wall -O3 --std=c99
 LDLIBS		:= -lm
 LDFLAGS		:= -Llib
-SDLFLAGS	:= -lmingw32 -lSDL2main -lSDL2
-DEBUG		:= -g
+SDLFLAGS	:= `sdl2-config --cflags --libs` -lSDL2_image
+GFLAGS		:= -mconsole
 
-.PHONY: all clean
+.PHONY: all clean debug
 
 all: $(TARGET)
+
+debug: $(DEBUG)
+
+$(DEBUG): $(OBJ) | $(BINDIR)
+	$(CC) $(LDFLAGS) $^ $(LDLIBS) $(SDLFLAGS) $(GFLAGS) -o $@
 
 $(TARGET): $(OBJ) | $(BINDIR)
 	$(CC) $(LDFLAGS) $^ $(LDLIBS) $(SDLFLAGS) -o $@

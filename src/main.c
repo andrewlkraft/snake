@@ -1,21 +1,32 @@
-#include "stdio.h"
-#include "conio.h"
+#include "main.h"
 
-#define SDL_MAIN_HANDLED
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_timer.h"
+/* REFERENCES:
+ *
+ * https://www.libsdl.org/
+ * https://wiki.libsdl.org/FrontPage
+ * https://w3.cs.jmu.edu/bernstdh/web/common/help/cpp_mingw-sdl-setup.php
+ * https://www.parallelrealities.co.uk/tutorials/shooter/shooter1.php
+ * https://www.geeksforgeeks.org/sdl-library-in-c-c-with-examples/
+ * 
+ */
 
-int main() {
-	if(SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		printf("error initializing SDL: %s\n", SDL_GetError());
-	}
-	SDL_Window* win = SDL_CreateWindow("GAME",
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED,
-		1000, 1000, 0);
+int main(int argc, char** argv)
+{
+	memset(&app, 0, sizeof(App));
 
-	while (1)
-		;
+	init_SDL();
+	atexit(quit_SDL);
+
+	while(1)
+	{
+		draw_background();
+
+		take_input();
 		
+		draw_scene();
+
+		SDL_Delay(16);
+	}
+	
 	return 0;
 }
