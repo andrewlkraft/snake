@@ -4,5 +4,6 @@
 #include "headers.h"
 
 extern Game game;
+extern Queue q;
 
 #endif

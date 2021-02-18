@@ -3,12 +3,13 @@
 
 #include "headers.h"
 
-extern void quit_SDL(void);
-extern void init_SDL(void);
-extern void draw_background(void);
-extern void draw_scene(void);
-extern void take_input(void);
+extern void 	quit_SDL		(void);
+extern void 	init_SDL		(void);
+extern void 	draw_background	(void);
+extern void 	draw_scene		(void);
+extern void 	take_input		(Direction *facing);
 
 Game game;
+Queue q;
 
 #endif

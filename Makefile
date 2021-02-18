@@ -29,7 +29,7 @@ $(TARGET): $(OBJ) | $(BINDIR)
 	$(CC) $(LDFLAGS) $^ $(LDLIBS) $(SDLFLAGS) -o $@
 
 $(DEBUG): $(OBJ) | $(BINDIR)
-	$(CC) $(LDFLAGS) $^ $(LDLIBS) $(SDLFLAGS) $(GFLAGS) -o $@
+	$(CC) -g $(LDFLAGS) $^ $(LDLIBS) $(SDLFLAGS) $(GFLAGS) -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@

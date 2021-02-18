@@ -37,6 +37,8 @@ void quit_SDL(void)
 	SDL_DestroyRenderer(game.rend);
 	
 	SDL_DestroyWindow(game.win);
+
+	clear(&q);
 	
 	SDL_Quit();
 }

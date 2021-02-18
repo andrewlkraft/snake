@@ -16,4 +16,9 @@
 #include "defs.h"
 #include "structs.h"
 
+extern void		push	(Queue	*q,
+						 Coord	pos);
+extern Coord	pop		(Queue	*q);
+extern void		clear	(Queue	*q);
+
 #endif

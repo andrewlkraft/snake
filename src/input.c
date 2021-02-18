@@ -1,6 +1,6 @@
 #include "input.h"
 
-void take_input(void)
+void take_input(Direction *facing)
 {
 	SDL_Event event;
 
@@ -12,25 +12,30 @@ void take_input(void)
 				printf("exiting...\n");
 				exit(0);
 				break;
+
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.scancode)
 				{
 					case SDL_SCANCODE_W:
-						printf("key W pressed\n");
+						if (*facing != DOWN)	*facing = UP;
 						break;
+
 					case SDL_SCANCODE_A:
-						printf("key A pressed\n");
+						if (*facing != RIGHT)	*facing = LEFT;
 						break;
+
 					case SDL_SCANCODE_S:
-						printf("key S pressed\n");
+						if (*facing != UP)		*facing = DOWN;
 						break;
+
 					case SDL_SCANCODE_D:
-						printf("key D pressed\n");
+						if (*facing != LEFT)	*facing = RIGHT;
 						break;
+					
 					default:
 						break;
 				}
-				break;
+
 			default:
 				break;
 		}
