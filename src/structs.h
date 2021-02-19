@@ -29,6 +29,7 @@ typedef struct {
 	SDL_Renderer *rend;
 	SDL_Window *win;
 	Tile field[FIELD_WIDTH*FIELD_HEIGHT];
+	TTF_Font *head, *subhead;
 } Game;
 
 #endif

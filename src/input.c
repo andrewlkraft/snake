@@ -1,6 +1,28 @@
 #include "input.h"
 
-void handle_input(Direction *facing)
+int handle_any_key()
+{
+	SDL_Event event;
+
+	while(SDL_PollEvent(&event))
+	{
+		switch(event.type)
+		{
+			case SDL_QUIT:
+				exit(0);
+				break;
+			
+			case SDL_KEYDOWN:
+				return 1;
+			
+			default:
+				break;
+		}
+	}
+	return 0;
+}
+
+void handle_game_input(Direction *facing)
 {
 	SDL_Event event;
 	Direction dir = *facing;
@@ -10,7 +32,6 @@ void handle_input(Direction *facing)
 		switch(event.type)
 		{
 			case SDL_QUIT:
-				printf("exiting...\n");
 				exit(0);
 				break;
 

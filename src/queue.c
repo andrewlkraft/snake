@@ -34,6 +34,7 @@ Coord pop(Queue *q) {
 
 void clear(Queue *q)
 {
+	if(q == 0 || q->head == 0) return;
 	for(struct Node *p=q->head; p->next; )
 	{
 		q->head = q->head->next;
