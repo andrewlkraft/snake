@@ -1,8 +1,9 @@
 #include "input.h"
 
-void take_input(Direction *facing)
+void handle_input(Direction *facing)
 {
 	SDL_Event event;
+	Direction dir = *facing;
 
 	while(SDL_PollEvent(&event))
 	{
@@ -17,19 +18,19 @@ void take_input(Direction *facing)
 				switch(event.key.keysym.scancode)
 				{
 					case SDL_SCANCODE_W:
-						if (*facing != DOWN)	*facing = UP;
+						if (dir != DOWN)	*facing = UP;
 						break;
 
 					case SDL_SCANCODE_A:
-						if (*facing != RIGHT)	*facing = LEFT;
+						if (dir != RIGHT)	*facing = LEFT;
 						break;
 
 					case SDL_SCANCODE_S:
-						if (*facing != UP)		*facing = DOWN;
+						if (dir != UP)		*facing = DOWN;
 						break;
 
 					case SDL_SCANCODE_D:
-						if (*facing != LEFT)	*facing = RIGHT;
+						if (dir != LEFT)	*facing = RIGHT;
 						break;
 					
 					default:

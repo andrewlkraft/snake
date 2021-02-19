@@ -5,9 +5,9 @@
 
 extern void 	quit_SDL		(void);
 extern void 	init_SDL		(void);
-extern void 	draw_background	(void);
-extern void 	draw_scene		(void);
-extern void 	take_input		(Direction *facing);
+extern void 	clear_screen	(void);
+extern void 	draw_game		(void);
+extern void 	handle_input	(Direction *facing);
 
 Game game;
 Queue q;

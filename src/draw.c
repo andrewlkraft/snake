@@ -1,12 +1,17 @@
 #include "draw.h"
 
-void draw_background(void)
+void clear_screen(void)
 {
-	SDL_SetRenderDrawColor(game.rend, 64, 128, 0, 255);
+	SDL_SetRenderDrawColor(game.rend, 0, 0, 0, 255);
 	SDL_RenderClear(game.rend);
 }
 
-void draw_scene(void)
+void render_message(const char *msg, int x, int y)
+{
+	
+}
+
+void draw_game(void)
 {
 	SDL_Rect dest;
 	Tile tile;
@@ -20,12 +25,12 @@ void draw_scene(void)
 
 			if(tile == SNAKE)
 			{
-				SDL_SetRenderDrawColor(game.rend, 196, 0, 196, 255);
+				SDL_SetRenderDrawColor(game.rend, 0, 255, 0, 255);
 				SDL_RenderFillRect(game.rend, &dest);
 			}
 			else if(tile == FOOD)
 			{
-				SDL_SetRenderDrawColor(game.rend, 196, 196, 0, 255);
+				SDL_SetRenderDrawColor(game.rend, 255, 0, 0, 255);
 				SDL_RenderFillRect(game.rend, &dest);
 			}
 		}

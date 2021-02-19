@@ -12,86 +12,97 @@
 
 int main(int argc, char** argv)
 {
-	// allocate memory for the Game structure we declared
+	// define game and q
 	memset(&game, 0, sizeof(Game));
 	q = (Queue){0, 0};
 
 	init_SDL();
 	atexit(quit_SDL);
 	
-	push(&q, (Coord){FIELD_WIDTH/2, FIELD_HEIGHT/2});
-	
-	Coord head = q.head->pos, tail = {0,0};
-	uint16_t len = 1, score = INITIAL_LEN, foodindex = 42;
-	Direction facing = UP;
-	Tile tile;
-
-	game.field[FIELD_WIDTH*head.y + head.x] = SNAKE;
-	game.field[foodindex] = FOOD;
-	
 	while(1)
 	{
-		draw_background();
-
-		take_input(&facing);
-
-		// render the new position of the head of the snake
-		switch(facing)
-		{
-			case UP:
-				head.y--;
-				break;
-
-			case DOWN:
-				head.y++;
-				break;
-
-			case LEFT:
-				head.x--;
-				break;
-
-			case RIGHT:
-				head.x++;
-		}
-		//printf("head:\t(%d, %d)\n", head.x, head.y);
+		push(&q, (Coord){FIELD_WIDTH/2, FIELD_HEIGHT/2});
 		
-		// game over if head goes out of bounds;
-		if(head.x >= FIELD_WIDTH || head.y >= FIELD_HEIGHT)
-			break;
+		Coord head = q.head->pos, tail = {0,0};
+		uint16_t len = 1, score = INITIAL_LEN, foodindex = (uint16_t) rand() % (FIELD_WIDTH*FIELD_HEIGHT - len);
+		Direction facing = UP;
+		Tile tile;
 
-		push(&q, head);
-		tile = game.field[FIELD_WIDTH*head.y + head.x];
-		if (tile == SNAKE)
-			break;
-		if (tile == FOOD)
-		{
-				score++;
-				foodindex = (uint16_t) rand() % FIELD_WIDTH*FIELD_HEIGHT - len;
-				while(game.field[foodindex] == SNAKE) 
-				{
-					foodindex++;
-					if (foodindex > FIELD_WIDTH*FIELD_HEIGHT) foodindex = 0;
-				}
-				game.field[foodindex] = FOOD;
-		}
 		game.field[FIELD_WIDTH*head.y + head.x] = SNAKE;
-
-		if (++len > score)
+		while(game.field[foodindex] == SNAKE) 
 		{
-			len--;
-			tail = pop(&q);
-			game.field[FIELD_WIDTH*tail.y + tail.x] = EMPTY;
+			foodindex++;
+			if (foodindex > FIELD_WIDTH*FIELD_HEIGHT) foodindex = 0;
 		}
+		game.field[foodindex] = FOOD;
 		
+		while(1)
+		{
+			clear_screen();
 
+			handle_input(&facing);
 
-		draw_scene();
+			// render the new position of the head of the snake
+			switch(facing)
+			{
+				case UP:
+					head.y--;
+					break;
 
-		// cap on framerate
-		SDL_Delay(50);
-	}
+				case DOWN:
+					head.y++;
+					break;
 
-	printf("Score: %d", score - INITIAL_LEN);
-	
+				case LEFT:
+					head.x--;
+					break;
+
+				case RIGHT:
+					head.x++;
+			}
+			printf("head:\t(%d, %d)\n", head.x, head.y);
+			
+			// game over if head goes out of bounds;
+			if(head.x >= FIELD_WIDTH || head.y >= FIELD_HEIGHT)
+				break;
+
+			push(&q, head);
+			tile = game.field[FIELD_WIDTH*head.y + head.x];
+			if (tile == SNAKE)
+				break;
+			if (tile == FOOD)
+			{
+					score++;
+					foodindex = (uint16_t) rand() % (FIELD_WIDTH*FIELD_HEIGHT - len);
+					while(game.field[foodindex] == SNAKE) 
+					{
+						foodindex++;
+						if (foodindex > FIELD_WIDTH*FIELD_HEIGHT) foodindex = 0;
+					}
+					game.field[foodindex] = FOOD;
+					printf("foodindex: (%d, %d)\n", foodindex/FIELD_WIDTH, foodindex%FIELD_WIDTH);
+			}
+			game.field[FIELD_WIDTH*head.y + head.x] = SNAKE;
+
+			if (++len > score)
+			{
+				len--;
+				tail = pop(&q);
+				game.field[FIELD_WIDTH*tail.y + tail.x] = EMPTY;
+			}
+			
+			draw_game();
+
+			// cap on framerate
+			SDL_Delay(50);
+		}
+
+		while(1)
+		{
+			clear_screen();
+
+			handle_input(&facing);
+		}
+	}	
 	return 0;
 }
