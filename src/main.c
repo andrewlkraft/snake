@@ -122,12 +122,16 @@ void run_game(void)
 
 	// Ending Screen
 	clear_screen();
-	texture_and_rect(game.rend, 350, 300, "GAME OVER", game.head, (SDL_Color){255,255,255}, &texture, &dest);
+	texture_and_rect(game.rend, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, "GAME OVER", game.head, (SDL_Color){255,255,255}, &texture, &dest);
+	dest.x -= dest.w / 2;
+	len = dest.y + dest.h;
 	SDL_RenderCopy(game.rend, texture, NULL, &dest);
-	len = 300+dest.h;
-	texture_and_rect(game.rend, 450, len, buff, game.subhead, (SDL_Color){255,0,0}, &texture, &dest);
+	texture_and_rect(game.rend, SCREEN_WIDTH/2, len, buff, game.subhead, (SDL_Color){255,0,0}, &texture, &dest);
+	dest.x -= dest.w / 2;
+	len = dest.y + dest.h;
 	SDL_RenderCopy(game.rend, texture, NULL, &dest);
-	texture_and_rect(game.rend, 350, len+dest.h, "Press any key to play again.", game.subhead, (SDL_Color){196,196,196}, &texture, &dest);
+	texture_and_rect(game.rend, SCREEN_WIDTH/2, len, "Press any key to play again.", game.subhead, (SDL_Color){196,196,196}, &texture, &dest);
+	dest.x -= dest.w / 2;
 	SDL_RenderCopy(game.rend, texture, NULL, &dest);
 	SDL_RenderPresent(game.rend);
 
@@ -150,10 +154,12 @@ int main(int argc, char** argv)
 	// Prepare to render font
 	SDL_Texture *texture;
 	SDL_Rect dest;
-	texture_and_rect(game.rend, 350, 300, "SNAKE GAME", game.head, (SDL_Color){255,255,255,255}, &texture, &dest);
+	texture_and_rect(game.rend, SCREEN_WIDTH / 2, SCREEN_HEIGHT/2, "SNAKE GAME", game.head, (SDL_Color){255,255,255,255}, &texture, &dest);
+	dest.x -= dest.w / 2;
 	SDL_RenderCopy(game.rend, texture, NULL, &dest);
 	
-	texture_and_rect(game.rend, 400, 300 + dest.h, "Press any key to play", game.subhead, (SDL_Color){196,196,196,255}, &texture, &dest);
+	texture_and_rect(game.rend, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + dest.h, "Press any key to play", game.subhead, (SDL_Color){196,196,196,255}, &texture, &dest);
+	dest.x -= dest.w / 2;
 	SDL_RenderCopy(game.rend, texture, NULL, &dest);
 	SDL_RenderPresent(game.rend);
 
